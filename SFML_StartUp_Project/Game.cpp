@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Game.hpp"
 
 Game::Game() : 
@@ -15,9 +16,19 @@ Game::~Game()
 void Game::Run()
 {
 	sf::RenderWindow &window = Window.GetRenderWindow();
+	sf::Sprite sprite;
+	sf::Texture texture;
+
+	if (!texture.loadFromFile("sprite.bmp"))
+		std::cerr << "Cannot load texture : sprite.png" << std::endl;
+
+	sprite.setTexture(texture);
 
 	while (window.isOpen())
 	{
+
+		sf::Time elapsed = _clock.getElapsedTime();
+
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -25,7 +36,15 @@ void Game::Run()
 				window.close();
 		}
 
+
 		window.clear();
+		window.draw(sprite);
 		window.display();
 	}
 }
+
+void Game::Update(sf::Time elapsedTime)
+{
+
+}
+
